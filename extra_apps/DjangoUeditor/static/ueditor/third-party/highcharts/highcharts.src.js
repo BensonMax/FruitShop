@@ -8360,7 +8360,7 @@ Axis.prototype = {
 			}
 		});
 
-		// Static items. As the axis group is cleared on subsequent calls
+		// static items. As the axis group is cleared on subsequent calls
 		// to render, these items are added outside the group.
 		// axis line
 		if (lineWidth) {
