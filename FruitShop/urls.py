@@ -20,8 +20,14 @@ import xadmin
 from FruitShop.settings import MEDIA_ROOT
 from django.views.static import serve
 from rest_framework.documentation import include_docs_urls
+from rest_framework.routers import DefaultRouter
 
-from goods.views import GoodListView
+from goods.views import GoodListViewSet
+
+#配置goods的url
+router = DefaultRouter()
+router.register(r'goods', GoodListViewSet)
+
 
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),    #账号 admin 密码 admin123
@@ -30,7 +36,6 @@ urlpatterns = [
 
 
     #商品列表页
-    url(r'goods/$',GoodListView.as_view(), name="good_list"),
-
+    url(r'^', include(router.urls)),
     url(r'docs/',include_docs_urls(title="水果超市API"))
 ]
