@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'goods.apps.GoodsConfig',
     'crispy_forms',
     'xadmin',
-    'rest_framework'
+    'rest_framework',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -131,7 +132,10 @@ USE_TZ = False   #默认是Ture，时间是utc时间，由于我们要用本地�
 
 STATIC_URL = '/static/'
 
-MEDIA_URL = "/media/"
+MEDIA_URL = '/media/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR,"static"),
+)
 MEDIA_ROOT = os.path.join(BASE_DIR,"media")
 
 REST_FRAMEWORK = {

@@ -15,18 +15,20 @@ Including another URLconf
 """
 
 from django.conf.urls import url,include
-#from django.contrib import admin
 import xadmin
 from FruitShop.settings import MEDIA_ROOT
 from django.views.static import serve
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 
-from goods.views import GoodListViewSet
+from goods.views import GoodListViewSet,CategoryViewSet
 
-#配置goods的url
+
 router = DefaultRouter()
-router.register(r'goods', GoodListViewSet)
+#配置goods的url
+router.register(r'goods', GoodListViewSet,base_name="goods")
+#配置categorys的url
+router.register(r'categorys', CategoryViewSet,base_name="categorys")
 
 
 urlpatterns = [

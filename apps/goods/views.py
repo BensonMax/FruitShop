@@ -1,8 +1,13 @@
-from .serializers import GoodsSeriallizer
+
 from rest_framework.pagination import PageNumberPagination
 from rest_framework import mixins
-from .models import Goods
+from .models import Goods,GoodsCategory
 from rest_framework import viewsets
+from django_filters.rest_framework import DjangoFilterBackend
+from .filters import GoodsFilter
+from rest_framework import filters
+
+from .serializers import GoodsSeriallizer,CategorySerializer
 
 
 #分页设置
@@ -15,9 +20,22 @@ class GoodsResultsSetPagination(PageNumberPagination):
 
 class GoodListViewSet(mixins.ListModelMixin,viewsets.GenericViewSet):
     """
-    List all goods
+    商品列表页,分页,搜索,过滤,排序
     """
     queryset = Goods.objects.all()
     serializer_class = GoodsSeriallizer
     pagination_class = GoodsResultsSetPagination
+    filter_backends = (DjangoFilterBackend,filters.SearchFilter,filters.OrderingFilter)
+    filter_class = GoodsFilter
+    search_fields = ('name', 'goods_brief','goods_desc')  #搜索
+    ordering_fields = ('sold_num', 'add_time')    #排序
+
+
+class CategoryViewSet(mixins.ListModelMixin,viewsets.GenericViewSet):
+    """
+    List:
+        商品分类列表数据
+    """
+    queryset = GoodsCategory.objects.filter(category_type=1)
+    serializer_class = CategorySerializer
 
