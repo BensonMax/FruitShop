@@ -20,6 +20,7 @@ from FruitShop.settings import MEDIA_ROOT
 from django.views.static import serve
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
+from rest_framework.authtoken import views
 
 from goods.views import GoodListViewSet,CategoryViewSet
 
@@ -39,5 +40,6 @@ urlpatterns = [
 
     #商品列表页
     url(r'^', include(router.urls)),
-    url(r'docs/',include_docs_urls(title="水果超市API"))
+    url(r'docs/',include_docs_urls(title="水果超市API")),
+    url(r'^api-token-auth/', views.obtain_auth_token)
 ]

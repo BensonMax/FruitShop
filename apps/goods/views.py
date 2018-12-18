@@ -31,7 +31,7 @@ class GoodListViewSet(mixins.ListModelMixin,viewsets.GenericViewSet):
     ordering_fields = ('sold_num', 'add_time')    #排序
 
 
-class CategoryViewSet(mixins.ListModelMixin,viewsets.GenericViewSet):
+class CategoryViewSet(mixins.ListModelMixin,mixins.RetrieveModelMixin,viewsets.GenericViewSet):
     """
     List:
         商品分类列表数据
