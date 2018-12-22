@@ -3,8 +3,9 @@ from django.shortcuts import render
 # Create your views here.
 from random import choice
 from rest_framework.mixins import CreateModelMixin
+from django.contrib.auth import get_user_model
 from rest_framework import viewsets
-from .serializers import SmsSerializer
+from .serializers import SmsSerializer, UserReSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from .models import VerifyCode
@@ -12,6 +13,8 @@ from .models import VerifyCode
 from utils.yunpian import YunPian
 from FruitShop.settings import APIKEY
 
+
+User = get_user_model()
 
 class SmsCodeViewset(CreateModelMixin,viewsets.GenericViewSet):
     """
@@ -52,6 +55,14 @@ class SmsCodeViewset(CreateModelMixin,viewsets.GenericViewSet):
                 "mobile": sms_status["msg"]
             }, status = status.HTTP_201_CREATED)
 
+
+
+class UserViewset(CreateModelMixin,viewsets.GenericViewSet):
+    """
+    用户
+    """
+    serializer_class = UserReSerializer
+    queryset = User.objects.all()
 
 
 

@@ -21,14 +21,20 @@ class CategorySerializer(serializers.ModelSerializer):
         model = GoodsCategory
         fields = "__all__"
 
+
+class GoodsImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GoodsImage
+        fields = ("image", )
+
 class GoodsSeriallizer(serializers.ModelSerializer):
     """
     商品列表序列化
     """
     category = CategorySerializer()
+    images = GoodsImageSerializer(many=True)
     class Meta:
         model = Goods
-        fields = "__all__"
-
+        exclude = ('goods_desc',)
 
 

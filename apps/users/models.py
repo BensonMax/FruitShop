@@ -3,6 +3,8 @@ from datetime import datetime   #系统包放在最上
 from django.db import models   #框架包
 from django.contrib.auth.models import AbstractUser
 
+
+
 # Create your models here.
 class UserProfile(AbstractUser):
     """
