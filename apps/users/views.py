@@ -2,17 +2,18 @@ from django.shortcuts import render
 
 # Create your views here.
 from random import choice
-from rest_framework.mixins import CreateModelMixin
+
 from django.contrib.auth import get_user_model
+from rest_framework.mixins import CreateModelMixin
 from rest_framework import viewsets
-from .serializers import SmsSerializer, UserReSerializer
 from rest_framework.response import Response
 from rest_framework import status
-from .models import VerifyCode
+from rest_framework import mixins
 
 from utils.yunpian import YunPian
 from FruitShop.settings import APIKEY
-
+from .models import VerifyCode
+from .serializers import SmsSerializer, UserReSerializer
 
 User = get_user_model()
 
@@ -57,12 +58,14 @@ class SmsCodeViewset(CreateModelMixin,viewsets.GenericViewSet):
 
 
 
-class UserViewset(CreateModelMixin,viewsets.GenericViewSet):
+class UserViewset(CreateModelMixin, viewsets.GenericViewSet):
     """
     用户
     """
     serializer_class = UserReSerializer
     queryset = User.objects.all()
+
+
 
 
 

@@ -39,7 +39,7 @@ class SmsSerializer(serializers.Serializer):
         return mobile
 
 
-class UserReSerializer(serializers.Serializer):
+class UserReSerializer(serializers.ModelSerializer):
     code = serializers.CharField(required=True, write_only=True, max_length=4, min_length=4,label="验证码",
                                  error_messages={
                                      "blank": "请输入验证码",
@@ -57,11 +57,10 @@ class UserReSerializer(serializers.Serializer):
     )
 
     def validate_code(self,code):
-        verify_records =VerifyCode.objects.filter(mobile= self.initial_data["username"]).order_by("-addtime")
+        verify_records =VerifyCode.objects.filter(mobile= self.initial_data["username"]).order_by("-add_time")
 
         if verify_records:
             last_record = verify_records[0]
-
             five_mintes_ago = datetime.now() - timedelta(hours=0, minutes=5, seconds=0)
             if five_mintes_ago > last_record.add_time:
                 raise serializers.ValidationError("验证码过期")
@@ -79,6 +78,8 @@ class UserReSerializer(serializers.Serializer):
 
     class Meta:
         model = User
-        fileds = ("username", "code","mobile")
+        #fields = ("username", "code", "mobile")
+        #fields = '__all__'
+        fields = ("username", "code", "mobile", "password")
 
 
