@@ -9,11 +9,15 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import mixins
+from rest_framework import permissions
+from rest_framework import authentication
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+from rest_framework_jwt.serializers import jwt_encode_handler,jwt_payload_handler
 
 from utils.yunpian import YunPian
 from FruitShop.settings import APIKEY
 from .models import VerifyCode
-from .serializers import SmsSerializer, UserReSerializer
+from .serializers import SmsSerializer, UserRegSerializer, UserDetailSerializer
 
 User = get_user_model()
 
@@ -58,15 +62,29 @@ class SmsCodeViewset(CreateModelMixin,viewsets.GenericViewSet):
 
 
 
-class UserViewset(CreateModelMixin, viewsets.GenericViewSet):
+class UserViewset(CreateModelMixin, mixins.UpdateModelMixin,mixins.RetrieveModelMixin,viewsets.GenericViewSet):
     """
     用户
     """
-    serializer_class = UserReSerializer
+    serializer_class = UserRegSerializer
     queryset = User.objects.all()
+    #authentication_classes = (JSONWebTokenAuthentication, authentication.SessionAuthentication)
 
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = self.perform_create(serializer)
 
+        re_dict = serializer.data
+        payload = jwt_payload_handler(user)
+        re_dict["token"] = jwt_encode_handler(payload)
+        re_dict["name"] = user.name if user.name else user.username
 
+        headers = self.get_success_headers(serializer.data)
+        return Response(re_dict, status=status.HTTP_201_CREATED, headers=headers)
+
+    def perform_create(self, serializer):
+        return serializer.save()
 
 
 
