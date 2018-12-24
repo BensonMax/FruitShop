@@ -23,15 +23,19 @@ from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken import views
 from rest_framework_jwt.views import obtain_jwt_token
 
-from goods.views import GoodListViewSet,CategoryViewSet
+from goods.views import GoodListViewSet,CategoryViewSet,HotSearchsViewset,BannerViewset
 from users.views import SmsCodeViewset,UserViewset
 
 
 router = DefaultRouter()
 #配置goods的url
 router.register(r'goods', GoodListViewSet,base_name="goods")
+#配置goods的url
+router.register(r'hotsearchs', HotSearchsViewset,base_name="hotsearchs")
 #配置categorys的url
 router.register(r'categorys', CategoryViewSet,base_name="categorys")
+#轮播图url
+router.register(r'banners', BannerViewset, base_name="banners")
 #配置code
 router.register(r'codes', SmsCodeViewset,base_name="codes")
 
