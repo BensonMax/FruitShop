@@ -53,9 +53,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -86,8 +86,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'FruitShop.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -147,7 +145,6 @@ REST_FRAMEWORK = {
        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
        'rest_framework.authentication.BasicAuthentication',
        #'rest_framework.authentication.SessionAuthentication',
-       'rest_framework.authentication.TokenAuthentication'
     ),
     # 'DEFAULT_THROTTLE_CLASSES': (
     #     'rest_framework.throttling.AnonRateThrottle',

@@ -75,6 +75,7 @@ class UserViewset(CreateModelMixin, mixins.UpdateModelMixin,mixins.RetrieveModel
         serializer.is_valid(raise_exception=True)
         user = self.perform_create(serializer)
 
+        #生成账号的时候同时返回token
         re_dict = serializer.data
         payload = jwt_payload_handler(user)
         re_dict["token"] = jwt_encode_handler(payload)

@@ -20,25 +20,28 @@ from FruitShop.settings import MEDIA_ROOT
 from django.views.static import serve
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
-from rest_framework.authtoken import views
 from rest_framework_jwt.views import obtain_jwt_token
+from rest_framework.authtoken import views
 
 from goods.views import GoodListViewSet,CategoryViewSet,HotSearchsViewset,BannerViewset
 from users.views import SmsCodeViewset,UserViewset
-
+from user_operation.views import UserFavViewset
 
 router = DefaultRouter()
 #配置goods的url
 router.register(r'goods', GoodListViewSet,base_name="goods")
-#配置goods的url
+#配置hotsearchs的url
 router.register(r'hotsearchs', HotSearchsViewset,base_name="hotsearchs")
+#配置用户收藏的url
+router.register(r'userfavs', UserFavViewset,base_name="userfavs")
 #配置categorys的url
+router.register(r'categorys', CategoryViewSet,base_name="categorys")
+#配置用户收藏的url
 router.register(r'categorys', CategoryViewSet,base_name="categorys")
 #轮播图url
 router.register(r'banners', BannerViewset, base_name="banners")
 #配置code
 router.register(r'codes', SmsCodeViewset,base_name="codes")
-
 #配置users
 router.register(r'users', UserViewset,base_name="users")
 
