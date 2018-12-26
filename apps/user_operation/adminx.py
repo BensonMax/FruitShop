@@ -4,7 +4,7 @@
 """
 @version: 1.0
 @author: liyao
-@license: Apache Licence 
+@license: Apache Licence
 @contact: yli@posbao.net
 @site: http://www.piowind.com/
 @software: PyCharm
@@ -25,6 +25,7 @@ class UserLeavingMessageAdmin(object):
 
 class UserAddressAdmin(object):
     list_display = ["signer_name", "signer_mobile", "district", "address"]
+
 
 xadmin.site.register(UserFav, UserFavAdmin)
 xadmin.site.register(UserAddress, UserAddressAdmin)
