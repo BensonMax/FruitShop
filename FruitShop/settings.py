@@ -93,7 +93,7 @@ DATABASES = {
         'NAME': "FruitShop",
         'USER':"FruitShop",
         'PASSWORD': "123456",
-        'HOST':"47.75.179.127",
+        'HOST':"localhost",
         'OPTIONS':{'init_command': 'SET storage_engine=INNODB;'}
     }
 }
